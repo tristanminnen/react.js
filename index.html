@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>VUE.js</title>
+    <!-- development version, includes helpful console warnings -->
+</head>
+<body>
+<div id="example-1">
+<nav class="navbar navbar-dark bg-dark justify-content-between">
+    <a class="navbar-brand">GroenteBoer.nl</a>
+    <form class="form-inline">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">winkel mand<p style="position: absolute;top: -5px;right: 1%;width: 24px;height: 24px;background: white;-moz-border-radius: 70px;-webkit-border-radius: 70px;border-radius: 70px;color: black;">{{totaantal}}</p></button>
+    </form>
+</nav>
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-8 bg-light">
+                    <div class="row">
+                    <div v-for="product in producten" :key="product">
+
+                            <div class="col-6 p-0 m-0">
+                                <div class="card" style="width: 14rem;height: 33rem;">
+                                    <div style="position: relative;height: 225px;">
+                                         <img class="card-img-top" style="margin: 0;position: absolute;top: 50%;left: 50%;margin-right: -50%;transform: translate(-50%, -50%);" v-bind:src="[product.img]" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body" style="position: absolute;bottom: 0; left: 0;">
+                                        <h5 class="card-title">{{product.product}}</h5>
+
+                                        <p class="card-text">
+                                            een heerlijk {{product.product}}
+                                        </p><br>
+                                        <div class="row">
+                                        <p class="col-4">${{product.prijs}}</p><p class="col-8">voorraad:{{product.voorraad}}</p>
+                                        </div>
+                                        <div v-if="product.voorraad == 0">
+                                            <button>er zijn geen {{product.product}} meer op vooraad </button>
+                                        </div>
+
+                                        <p v-else>
+                                            <button class="btn btn-primary" v-on:click="product.aantal +=1,product.voorraad -=1,totaal += product.prijs,totaantal +=1">Voeg {{product.product}} toe aan winkelmand</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-4 bg-secondary">
+                    <div class="container">
+                    <h2>Winkel Wagen:</h2>
+                    </div>
+                    <div v-for="product in producten" :key="product" >
+
+                            <p v-if="product.aantal == 0"></p>
+                            <div v-else>
+
+                                <div class="row">
+                                        <div class="col-12 col-md-4">
+                                                <p> {{product.aantal}} x {{ product.product }}</p>
+                                        </div>
+                                        <div class="col-6 col-md-5">
+                                                <p>${{product.prijs}}</p>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <p>${{product.prijs*product.aantal}}</p>
+                                        </div>
+                                </div>
+
+
+
+
+
+                         </div>
+                    </div>
+                    <p v-if="totaal == 0"></p>
+                    <div v-else>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <h5>totaal:{{totaantal}} Items</h5>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <p></p>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <h5>${{totaal}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<script src="app.js"></script>
+</body>
+</html>
